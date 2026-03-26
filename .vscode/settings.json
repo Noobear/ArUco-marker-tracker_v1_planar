@@ -1,0 +1,6 @@
+{
+    // Recommended interpreter for this workspace
+    "python.defaultInterpreterPath": "/Users/kim-kwon-woong/Visual_Studio/Python_26_1/venv/bin/python",
+    // Backwards-compatible setting for older VS Code versions
+    "python.pythonPath": "/Users/kim-kwon-woong/Visual_Studio/Python_26_1/venv/bin/python"
+}
