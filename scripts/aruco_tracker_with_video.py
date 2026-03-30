@@ -92,7 +92,7 @@ def calibrate_and_track_with_video(
     print()
     
     # 출력 비디오 설정
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    fourcc = cv2.VideoWriter.fourcc(*'mp4v')
     out = cv2.VideoWriter(output_video_path, fourcc, fps, (width, height))
     
     # CSV 파일 준비
