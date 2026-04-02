@@ -6,6 +6,12 @@ tests/results/*.mp4
 tests/results/*.csv
 marker/print_*.pdf
 
+# Video files (too large for git)
+tests/videos/*.MOV
+tests/videos/*.mov
+tests/videos/*.mp4
+tests/videos/*.MP4
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
