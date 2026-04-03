@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 ArUco 마커 트래커
-- CSV + 시각화 영상을 output/ 폴더에 자동 저장
+- CSV + 시각화 영상 --> output/ 폴더에 자동 저장
 
 사용법:
     python tracker.py 영상파일.mov --marker-size 5.0
@@ -97,7 +97,9 @@ def track(video_path, output_video_path, output_csv_path, marker_size_cm=1.0):
         frame_idx_actual = int(cap.get(cv2.CAP_PROP_POS_FRAMES)) - 1
         timestamp = frame_idx_actual / fps
 
-        corners, ids, _ = detector_obj.detectMarkers(frame)
+        # 그레이스케일로 변환하여 감지
+        gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        corners, ids, _ = detector_obj.detectMarkers(gray_frame)
 
         # 첫 감지 시 스케일 계산
         if scale_cm_per_px is None and ids is not None:
