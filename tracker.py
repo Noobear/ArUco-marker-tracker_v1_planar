@@ -54,6 +54,33 @@ def main():
 def track(video_path, output_video_path, output_csv_path, marker_size_cm=1.0):
     detector = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
     params = cv2.aruco.DetectorParameters()
+
+    # --- Adaptive Threshold 튜닝 ---
+    # 작은 마커~큰 마커까지 더 넓은 범위에서 임계값 시도 (조명 변화 대응)
+    params.adaptiveThreshWinSizeMin  = 3
+    params.adaptiveThreshWinSizeMax  = 53    # 기본 23 → 53 (범위 확장)
+    params.adaptiveThreshWinSizeStep = 4     # 기본 10 → 4  (더 촘촘히 시도)
+
+    # --- 마커 크기 허용 범위 ---
+    # 1cm 작은 마커도 놓치지 않도록 최소 perimeter 하한 완화
+    params.minMarkerPerimeterRate = 0.01     # 기본 0.03 → 0.01
+    params.maxMarkerPerimeterRate = 4.0
+
+    # --- 모션 블러 대응 ---
+    # 회전/움직임으로 윤곽이 약간 찌그러져도 다각형 근사 허용
+    params.polygonalApproxAccuracyRate = 0.05  # 기본 0.03 → 0.05
+
+    # --- Corner Refinement: 서브픽셀 정확도 ---
+    # 감지된 코너 위치를 서브픽셀 단위로 정교화 → 위치 정확도 대폭 향상
+    params.cornerRefinementMethod         = cv2.aruco.CORNER_REFINE_SUBPIX
+    params.cornerRefinementWinSize        = 5
+    params.cornerRefinementMaxIterations  = 30
+    params.cornerRefinementMinAccuracy    = 0.1
+
+    # --- Error Correction ---
+    # 마커 비트 디코딩 시 더 많은 비트 에러를 허용 (블러/저해상도에 robust)
+    params.errorCorrectionRate = 1.0         # 기본 0.6 → 1.0 (최대)
+
     detector_obj = cv2.aruco.ArucoDetector(detector, params)
 
     cap = cv2.VideoCapture(video_path)
