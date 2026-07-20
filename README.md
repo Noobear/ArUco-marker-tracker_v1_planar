@@ -55,4 +55,4 @@ pip install opencv-contrib-python pillow
 
 ## 산출물 위치
 
-결과물(mp4·csv·png)은 git 대신 **kw-repo/aruco-tracker/output/** 에 보관 (2026-07-16 이관).
+결과물(mp4·csv·png)은 git 대신 **kw-repo/tool-aruco-tracker/output/** 에 보관 (2026-07-16 이관).
